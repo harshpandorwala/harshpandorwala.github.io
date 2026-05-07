@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7-Day Team Wellness Challenge — Harsh Pandorwala</title>
+<meta name="description" content="Seven daily habits. Seven days. A complete wellness reset for your entire team.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --dark:       #1C1C1A;
+    --dark-soft:  #252523;
+    --sky:        #E6F1FB;
+    --sky-dim:    #a8c4e0;
+    --earth:      #C0DD97;
+    --water:      #378ADD;
+    --water-deep: #185FA5;
+    --grey:       #6a7a8a;
+    --white:      #ffffff;
+    --serif: 'Cormorant Garamond', serif;
+    --sans:  'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--sky); color: var(--dark); overflow-x: hidden; }
+
+  /* ===== DARK: HERO ===== */
+  .hero {
+    min-height: 100vh;
+    background: var(--dark);
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-inner { max-width: 860px; margin: 0 auto; padding: 120px 56px 100px; position: relative; z-index: 2; }
+
+  .hero-tag { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--earth); margin-bottom: 28px; opacity: 0.8; }
+
+  .hero h1 { font-family: var(--serif); font-size: 88px; line-height: 0.98; font-weight: 300; color: var(--white); margin-bottom: 36px; }
+  .hero h1 em { font-style: italic; color: var(--earth); }
+
+  .hero-sub { font-size: 16px; line-height: 1.85; color: rgba(255,255,255,0.55); max-width: 520px; margin-bottom: 52px; font-weight: 300; }
+
+  .btn-hero {
+    background: var(--sky); color: var(--dark);
+    border: none; padding: 17px 44px;
+    font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; border-radius: 4px; text-decoration: none;
+    display: inline-block; transition: opacity 0.2s; font-weight: 500;
+  }
+  .btn-hero:hover { opacity: 0.88; }
+
+  /* ===== LIGHT: PROBLEM (white) ===== */
+  .problem { background: var(--white); padding: 100px 56px; }
+  .problem-inner { max-width: 760px; margin: 0 auto; }
+
+  .tag-light { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--water); margin-bottom: 20px; }
+
+  .problem h2 { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--dark); line-height: 1.15; margin-bottom: 36px; }
+  .problem h2 em { font-style: italic; color: var(--water); }
+
+  .problem-text { font-size: 16px; line-height: 1.95; color: var(--grey); font-weight: 300; }
+  .problem-text p { margin-bottom: 22px; }
+  .problem-text p:last-child { margin-bottom: 0; }
+  .problem-text strong { color: var(--dark); font-weight: 500; }
+
+  /* ===== LIGHT: HABITS (sky) ===== */
+  .habits { background: var(--sky); padding: 100px 56px; }
+  .habits-inner { max-width: 1000px; margin: 0 auto; }
+
+  .habits h2 { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--dark); margin-bottom: 12px; line-height: 1.1; }
+  .habits h2 em { font-style: italic; color: var(--water); }
+  .habits-sub { font-size: 14px; color: var(--grey); margin-bottom: 52px; line-height: 1.7; }
+
+  .habits-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .habits-grid-bottom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 75%; }
+
+  .habit-card {
+    background: var(--white); border-radius: 8px; padding: 26px 22px;
+    border: 1px solid rgba(55, 138, 221, 0.12);
+    cursor: pointer; transition: all 0.22s; position: relative;
+  }
+  .habit-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(28,28,26,0.07); border-color: var(--earth); background: #f7fdf0; }
+  .habit-card.open { border-color: var(--water); }
+
+  .habit-num { font-family: var(--serif); font-size: 12px; color: var(--water); opacity: 0.5; margin-bottom: 10px; letter-spacing: 1px; }
+  .habit-name { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--dark); margin-bottom: 7px; }
+  .habit-time { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--water); }
+  .habit-detail { font-size: 12px; color: var(--grey); line-height: 1.75; margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(55,138,221,0.1); display: none; }
+  .habit-card.open .habit-detail { display: block; }
+  .habit-plus { position: absolute; top: 18px; right: 18px; font-size: 15px; color: rgba(55,138,221,0.3); transition: transform 0.2s, color 0.2s; }
+  .habit-card.open .habit-plus { transform: rotate(45deg); color: var(--water); }
+
+  /* ===== DARK: WHAT YOUR TEAM GETS ===== */
+  .gets { background: var(--dark); padding: 100px 56px; }
+  .gets-inner { max-width: 900px; margin: 0 auto; }
+
+  .tag-dark { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--earth); opacity: 0.8; margin-bottom: 20px; }
+
+  .gets h2 { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 56px; }
+  .gets h2 em { font-style: italic; color: var(--earth); }
+
+  .gets-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+  .gets-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(192,221,151,0.12);
+    border-radius: 8px; padding: 32px 28px;
+    transition: border-color 0.2s;
+  }
+  .gets-card:hover { border-color: rgba(192,221,151,0.3); }
+
+  .gets-card-title {
+    font-family: var(--serif); font-size: 22px; font-weight: 400;
+    color: var(--earth); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .gets-card-title .check { font-size: 14px; opacity: 0.8; }
+
+  .gets-items { display: flex; flex-direction: column; gap: 8px; }
+  .gets-item { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; padding-left: 14px; position: relative; }
+  .gets-item::before { content: '—'; position: absolute; left: 0; color: rgba(192,221,151,0.3); font-size: 11px; }
+
+  /* ===== LIGHT: TESTIMONIALS (sky) ===== */
+  .testimonials { background: var(--sky); padding: 100px 56px; }
+  .testimonials-inner { max-width: 1000px; margin: 0 auto; }
+  .testimonials h2 { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--dark); margin-bottom: 52px; line-height: 1.1; }
+  .testimonials h2 em { font-style: italic; color: var(--water); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .testimonial-box { aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; background: var(--white); border: 1px solid rgba(55,138,221,0.12); position: relative; }
+  .testimonial-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .testimonial-ph { display: none; width: 100%; height: 100%; align-items: center; justify-content: center; }
+  .testimonial-ph p { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--water); opacity: 0.4; }
+
+  /* ===== LIGHT: HOW IT WORKS (white) ===== */
+  .how { background: var(--white); padding: 100px 56px; }
+  .how-inner { max-width: 900px; margin: 0 auto; }
+
+  .how h2 { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--dark); margin-bottom: 60px; line-height: 1.1; }
+  .how h2 em { font-style: italic; color: var(--water); }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .step { padding-left: 22px; border-left: 2px solid rgba(55,138,221,0.2); }
+  .step-num { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--water); opacity: 0.35; line-height: 1; margin-bottom: 14px; }
+  .step-title { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--dark); margin-bottom: 10px; }
+  .step-desc { font-size: 13px; color: var(--grey); line-height: 1.75; }
+
+  /* ===== DARK: VIDEO ===== */
+  .video-section { background: var(--dark); padding: 100px 56px; text-align: center; }
+  .video-section h2 { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--white); margin-bottom: 52px; line-height: 1.1; }
+  .video-section h2 em { font-style: italic; color: var(--earth); }
+  .video-wrapper {
+    max-width: 700px; margin: 0 auto;
+    background: rgba(192,221,151,0.04);
+    border: 1px solid rgba(192,221,151,0.12);
+    border-radius: 12px; aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .video-placeholder { text-align: center; }
+  .play-btn { width: 60px; height: 60px; border-radius: 50%; border: 1px solid rgba(192,221,151,0.4); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .video-placeholder p { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--earth); opacity: 0.6; }
+
+  /* ===== LIGHT: ABOUT (sky) ===== */
+  .about-section { background: var(--sky); padding: 100px 56px; }
+  .about-inner { max-width: 880px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center; }
+
+  .about-img { border-radius: 8px; overflow: hidden; background: rgba(55,138,221,0.1); aspect-ratio: 3/4; }
+  .about-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .about-img-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+  .about-img-ph p { font-size: 10px; letter-spacing: 2px; color: var(--water); text-transform: uppercase; opacity: 0.5; }
+
+  .about-content h2 { font-family: var(--serif); font-size: 44px; font-weight: 300; color: var(--dark); margin-bottom: 24px; line-height: 1.15; }
+  .about-content h2 em { font-style: italic; color: var(--water); }
+  .about-content p { font-size: 14px; color: var(--grey); line-height: 1.85; margin-bottom: 16px; font-weight: 300; }
+
+  .credentials { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .cred { background: var(--white); border: 1px solid rgba(55,138,221,0.18); border-radius: 20px; padding: 6px 14px; font-size: 11px; color: var(--water-deep); letter-spacing: 0.5px; }
+
+  /* ===== DARK: FORM ===== */
+  .form-section { background: var(--dark); padding: 100px 56px; }
+  .form-inner { max-width: 660px; margin: 0 auto; text-align: center; }
+  .form-inner h2 { font-family: var(--serif); font-size: 52px; font-weight: 300; color: var(--white); margin-bottom: 16px; line-height: 1.1; }
+  .form-inner h2 em { font-style: italic; color: var(--earth); }
+  .form-inner p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.85; margin-bottom: 44px; font-weight: 300; }
+  .tally-wrap { border-radius: 10px; overflow: hidden; border: 1px solid rgba(192,221,151,0.1); background: rgba(255,255,255,0.02); }
+
+  /* ===== FOOTER ===== */
+  footer { background: var(--dark-soft); border-top: 0.5px solid rgba(192,221,151,0.08); padding: 28px 56px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: var(--serif); font-size: 15px; color: var(--sky); opacity: 0.6; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-size: 11px; color: var(--sky-dim); text-decoration: none; letter-spacing: 1px; opacity: 0.6; transition: all 0.2s; }
+  .footer-links a:hover { color: var(--earth); opacity: 1; }
+  .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .hero-inner { padding: 80px 24px; }
+    .hero h1 { font-size: 52px; }
+    .problem, .habits, .how, .video-section, .about-section, .form-section, .gets { padding: 60px 24px; }
+    .problem h2, .habits h2, .how h2, .form-inner h2, .video-section h2, .gets h2 { font-size: 36px; }
+    .habits-grid { grid-template-columns: repeat(2, 1fr); }
+    .habits-grid-bottom { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+    .gets-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; gap: 32px; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; gap: 16px; padding: 24px; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- DARK: HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-tag">Team Wellness Challenge</p>
+    <h1>Seven days.<br>Seven habits.<br><em>One team reset.</em></h1>
+    <p class="hero-sub">Your team already knows work gets in the way of their health. What if the work environment itself became the reason they stayed well?</p>
+    <a href="#form" class="btn-hero">Bring This to My Team</a>
+  </div>
+</section>
+
+<!-- LIGHT: PROBLEM -->
+<section class="problem">
+  <div class="problem-inner">
+    <p class="tag-light">The Problem</p>
+    <h2>Work is the reason your team <em>stops showing up</em> for themselves.</h2>
+    <div class="problem-text">
+      <p>Every high performer knows what good habits look like. They have read the books, downloaded the apps, started the routines. But then a deadline hits, a meeting runs long, a week goes by, and the habits quietly disappear.</p>
+      <p>The problem is not discipline. <strong>The problem is environment.</strong> When the people around you are not doing it, it is almost impossible to sustain it alone.</p>
+      <p>This challenge changes that. For seven days, your entire team commits together. The habits are simple. The time investment is small. The impact, when done as a group, is something completely different.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHT: HABITS -->
+<section class="habits">
+  <div class="habits-inner">
+    <p class="tag-light">The Seven Habits</p>
+    <h2>Simple on paper.<br><em>Powerful together.</em></h2>
+    <p class="habits-sub">Each habit takes 7 minutes. Together they take 49 minutes a day. Tap each habit to learn more.</p>
+    <div class="habits-grid">
+      <div class="habit-card" onclick="toggleHabit(this)">
+        <div class="habit-num">01</div><div class="habit-name">Movement</div><div class="habit-time">7 minutes</div>
+        <div class="habit-detail">A guided movement flow. No equipment needed. Can be done at a desk, in a meeting room, or outside. Wakes up the body and shifts energy for the day ahead.</div>
+        <span class="habit-plus">+</span>
+      </div>
+      <div class="habit-card" onclick="toggleHabit(this)">
+        <div class="habit-num">02</div><div class="habit-name">Meditation</div><div class="habit-time">7 minutes</div>
+        <div class="habit-detail">A simple guided practice. No experience needed. Builds the kind of presence and clarity that makes everything else at work easier.</div>
+        <span class="habit-plus">+</span>
+      </div>
+      <div class="habit-card" onclick="toggleHabit(this)">
+        <div class="habit-num">03</div><div class="habit-name">Journaling</div><div class="habit-time">7 minutes</div>
+        <div class="habit-detail">One reflection prompt a day. Builds the self-awareness that separates reactive professionals from intentional ones. Not fluff, real clarity.</div>
+        <span class="habit-plus">+</span>
+      </div>
+      <div class="habit-card" onclick="toggleHabit(this)">
+        <div class="habit-num">04</div><div class="habit-name">Mindful Break</div><div class="habit-time">7 minutes</div>
+        <div class="habit-detail">A screen-off reset during the workday. No phone, no laptop, just a few minutes of intentional stillness. Resets focus for the second half of the day.</div>
+        <span class="habit-plus">+</span>
+      </div>
+    </div>
+    <div class="habits-grid-bottom">
+      <div class="habit-card" onclick="toggleHabit(this)">
+        <div class="habit-num">05</div><div class="habit-name">Hydration</div><div class="habit-time">All day</div>
+        <div class="habit-detail">Seven glasses of water tracked consciously. Most people are mildly dehydrated during work hours without realising how much it affects concentration and mood.</div>
+        <span class="habit-plus">+</span>
+      </div>
+      <div class="habit-card" onclick="toggleHabit(this)">
+        <div class="habit-num">06</div><div class="habit-name">Learning</div><div class="habit-time">7 minutes</div>
+        <div class="habit-detail">Something new, every day. A concept, a perspective, a page. Keeps the mind curious and growing beyond the immediate demands of work.</div>
+        <span class="habit-plus">+</span>
+      </div>
+      <div class="habit-card" onclick="toggleHabit(this)">
+        <div class="habit-num">07</div><div class="habit-name">Reading</div><div class="habit-time">7 minutes</div>
+        <div class="habit-detail">Seven minutes of reading every day. Not screens, not scrolling. A book, a page, an idea. Small and consistent, it builds a mind that keeps growing.</div>
+        <span class="habit-plus">+</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DARK: WHAT YOUR TEAM GETS -->
+<section class="gets">
+  <div class="gets-inner">
+    <p class="tag-dark">The Full Package</p>
+    <h2>Everything your<br>team <em>gets.</em></h2>
+    <div class="gets-grid">
+      <div class="gets-card">
+        <div class="gets-card-title"><span class="check">✓</span> Pre-Challenge Kickoff</div>
+        <div class="gets-items">
+          <div class="gets-item">A 1-hour live Zoom session with Harsh before the challenge begins</div>
+          <div class="gets-item">Why habits fail and how micro habits drive performance</div>
+          <div class="gets-item">Live walkthrough of the 7x7 system</div>
+        </div>
+      </div>
+      <div class="gets-card">
+        <div class="gets-card-title"><span class="check">✓</span> 7-Day Guided Challenge</div>
+        <div class="gets-items">
+          <div class="gets-item">Daily habit structure built on the 7x7 system</div>
+          <div class="gets-item">Simple, actionable format that fits into any workday</div>
+        </div>
+      </div>
+      <div class="gets-card">
+        <div class="gets-card-title"><span class="check">✓</span> WhatsApp Accountability Group</div>
+        <div class="gets-items">
+          <div class="gets-item">Daily morning check-ins and habit drops</div>
+          <div class="gets-item">Team engagement and shared momentum</div>
+          <div class="gets-item">Light nudges, not overwhelming</div>
+        </div>
+      </div>
+      <div class="gets-card">
+        <div class="gets-card-title"><span class="check">✓</span> Guided Audio Library</div>
+        <div class="gets-items">
+          <div class="gets-item">Breathwork sessions recorded by Harsh</div>
+          <div class="gets-item">Guided meditations for the full seven days</div>
+        </div>
+      </div>
+      <div class="gets-card">
+        <div class="gets-card-title"><span class="check">✓</span> Daily Journal Prompts</div>
+        <div class="gets-items">
+          <div class="gets-item">One prompt per day, designed for clarity</div>
+          <div class="gets-item">Reflection that is practical, not performative</div>
+        </div>
+      </div>
+      <div class="gets-card">
+        <div class="gets-card-title"><span class="check">✓</span> Branded Resources</div>
+        <div class="gets-items">
+          <div class="gets-item">Printable habit tracker PDF</div>
+          <div class="gets-item">Option for internal company branding on all materials</div>
+        </div>
+      </div>
+      <div class="gets-card">
+        <div class="gets-card-title"><span class="check">✓</span> Pre and Post Assessment</div>
+        <div class="gets-items">
+          <div class="gets-item">Tracks energy, focus, stress, and productivity perception</div>
+          <div class="gets-item">Gives you real data on the impact across your team</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHT: TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <p class="tag-light">From the Last Challenge</p>
+    <h2>What people said<br><em>during the challenge.</em></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-box">
+        <img src="images/testimonial-1.jpg" alt="Participant message" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="testimonial-ph"><p>Screenshot 1</p></div>
+      </div>
+      <div class="testimonial-box">
+        <img src="images/testimonial-2.jpg" alt="Participant message" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="testimonial-ph"><p>Screenshot 2</p></div>
+      </div>
+      <div class="testimonial-box">
+        <img src="images/testimonial-3.jpg" alt="Participant message" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="testimonial-ph"><p>Screenshot 3</p></div>
+      </div>
+      <div class="testimonial-box">
+        <img src="images/testimonial-4.jpg" alt="Participant message" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="testimonial-ph"><p>Screenshot 4</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHT: HOW IT WORKS -->
+<section class="how">
+  <div class="how-inner">
+    <p class="tag-light">How It Works</p>
+    <h2>Simple delivery.<br><em>Real accountability.</em></h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Kickoff Call</div>
+        <div class="step-desc">A 1-hour Zoom session with Harsh before the challenge begins. Your team understands the why, the system, and exactly what to expect.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Daily WhatsApp Drops</div>
+        <div class="step-desc">Every morning your team receives that day's habits, a guided audio, and a journal prompt. No apps, no logins. Just their phone.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Closing Session</div>
+        <div class="step-desc">On day seven, Harsh hosts a live 30-minute closing Zoom to reflect, celebrate, and map what the team carries forward.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DARK: VIDEO -->
+<section class="video-section">
+  <p class="tag-dark" style="margin-bottom:16px;">Hear From Harsh</p>
+  <h2>Why <em>teams</em> need this.</h2>
+  <div class="video-wrapper">
+    <div class="video-placeholder">
+      <div class="play-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#C0DD97"><polygon points="5,3 19,12 5,21"/></svg>
+      </div>
+      <p>Video coming soon</p>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHT: ABOUT -->
+<section class="about-section">
+  <div class="about-inner">
+    <div class="about-img">
+      <img src="images/harsh-photo.jpg" alt="Harsh Pandorwala" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="about-img-ph"><p>Your photo here</p></div>
+    </div>
+    <div class="about-content">
+      <p class="tag-light">Why I Built This</p>
+      <h2>Work was always the <em>reason.</em></h2>
+      <p>I spent years watching people I knew, driven, capable, ambitious people, slowly let their health slip. Not because they did not care. Because work kept getting in the way. A missed workout here, a skipped meal there, until one day the habits were completely gone.</p>
+      <p>I built this challenge because I know the individual approach is not enough. When the environment changes, when the people around you are doing it too, everything becomes easier. This is not about discipline. It is about designing the right conditions.</p>
+      <p>Seven days is enough to feel the difference. That is all I am asking for.</p>
+      <div class="credentials">
+        <span class="cred">Certified Breathwork Trainer</span>
+        <span class="cred">Habit Coach</span>
+        <span class="cred">Daily Elevation Method</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DARK: FORM -->
+<section class="form-section" id="form">
+  <div class="form-inner">
+    <p class="tag-dark" style="margin-bottom:16px;">Get Started</p>
+    <h2>Bring this to<br><em>your team.</em></h2>
+    <p>Fill in the form below and Harsh will be in touch personally to discuss how the challenge can work for your team.</p>
+    <div class="tally-wrap">
+      <iframe data-tally-src="https://tally.so/embed/7R4yka?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0" title="Team Wellness Inquiry"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Harsh Pandorwala</span>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="https://www.instagram.com/harshpandorwala/" target="_blank">Instagram</a>
+    <a href="https://www.linkedin.com/in/harshpandorwala/" target="_blank">LinkedIn</a>
+    <a href="https://www.youtube.com/@harshpandorwala" target="_blank">YouTube</a>
+    <a href="https://tally.so/r/rjdAjN" target="_blank">1:1 Coaching</a>
+    <a href="mailto:harsh@harshpandorwala.com">Get in touch</a>
+  </div>
+  <span class="footer-copy">© 2026 Harsh Pandorwala</span>
+</footer>
+
+<script>
+function toggleHabit(card) { card.classList.toggle('open'); }
+var d=document,w="https://tally.so/widgets/embed.js",v=function(){if(typeof Tally!=="undefined"){Tally.loadEmbeds();return;}d.querySelectorAll("[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc;});};
+if(d.querySelector('script[src="'+w+'"]')===null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s);}else{v();}
+</script>
+</body>
+</html>
