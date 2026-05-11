@@ -34,29 +34,29 @@
 
   .hero-left { display: flex; flex-direction: column; justify-content: space-between; padding: 64px 64px 52px 72px; }
 
-  .hero-name { font-family: var(--serif); font-size: 22px; font-weight: 400; color: var(--sky); letter-spacing: 0.5px; }
+  .hero-name { font-family: var(--serif); font-size: 22px; font-weight: 400; color: #ffffff; letter-spacing: 0.5px; }
 
   .hero-center { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 48px 0; }
 
-  .hero-headline { font-family: var(--serif); font-size: 76px; line-height: 1.0; font-weight: 300; color: var(--sky); margin-bottom: 28px; }
-  .hero-headline em { font-style: italic; color: var(--earth); }
+  .hero-headline { font-family: var(--serif); font-size: 76px; line-height: 1.0; font-weight: 300; color: var(--white, #ffffff); margin-bottom: 28px; }
+  .hero-headline em { font-style: italic; color: var(--sky-dim); }
 
-  .hero-sub { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.7); max-width: 340px; margin-bottom: 48px; font-weight: 300; }
+  .hero-sub { font-size: 14px; line-height: 1.9; color: rgba(255,255,255,0.85); max-width: 340px; margin-bottom: 48px; font-weight: 300; }
 
   .hero-btns { display: flex; flex-direction: column; gap: 12px; max-width: 260px; }
 
   /* Dark section buttons */
   .btn-dark-primary {
-    background: var(--sky); color: var(--dark);
+    background: var(--earth); color: var(--dark);
     border: none; padding: 15px 24px;
     font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
     cursor: pointer; border-radius: 4px; text-decoration: none;
-    display: block; text-align: center; transition: opacity 0.2s; font-weight: 500;
+    display: block; text-align: center; transition: background 0.2s, color 0.2s; font-weight: 500;
   }
-  .btn-dark-primary:hover { opacity: 0.88; }
+  .btn-dark-primary:hover { background: #ffffff; color: var(--dark); }
 
   .btn-dark-secondary {
-    background: transparent; color: var(--sky);
+    background: transparent; color: var(--sky-dim);
     border: 1px solid rgba(230, 241, 251, 0.25);
     padding: 15px 24px; font-family: var(--sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
     cursor: pointer; border-radius: 4px; text-decoration: none;
@@ -68,10 +68,10 @@
 
   .contact-link {
     font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--earth); text-decoration: none; font-weight: 400;
-    border-bottom: 1px solid rgba(192, 221, 151, 0.3); padding-bottom: 2px; transition: opacity 0.2s;
+    color: var(--sky-dim); text-decoration: none; font-weight: 400;
+    border-bottom: 1px solid rgba(168, 196, 224, 0.3); padding-bottom: 2px; transition: color 0.2s;
   }
-  .contact-link:hover { opacity: 0.75; }
+  .contact-link:hover { color: #ffffff; }
 
   .divider { width: 1px; height: 14px; background: rgba(230, 241, 251, 0.15); }
 
