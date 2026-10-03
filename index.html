@@ -23,7 +23,7 @@
   --pad:clamp(14px,2vw,28px); --r:clamp(20px,2.2vw,32px); --line:1px solid rgba(176,143,94,.55);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;scroll-padding-top:20px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img,video{display:block;max-width:100%}
 a{color:inherit}
@@ -51,38 +51,16 @@ p{margin:0;text-wrap:pretty}
 .fade.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
-/* HEADER */
-.nav{position:sticky;top:0;z-index:50;height:80px;background:var(--bone);border-bottom:1px solid transparent;transition:border-color .4s}
-.nav.solid{border-color:rgba(176,143,94,.35)}
-.nav-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.nav .brand img{height:24px;width:auto}
-.nav-r{display:flex;align-items:center;gap:clamp(18px,2.6vw,40px)}
-.nav-links{display:flex;gap:clamp(18px,2.2vw,34px);list-style:none;margin:0;padding:0}
-.nav-links a{font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;color:var(--ink-2)}
-.nav-links a:hover{color:var(--gold)}
-.btn.dark{background:var(--forest);border-color:var(--forest);color:var(--bone)}
-.btn.dark:hover{background:transparent;color:var(--forest)}
-.nav .btn{padding:13px 22px;font-size:10.5px;letter-spacing:.2em}
-.menu-cta{display:none}
-.burger{display:none;background:none;border:0;padding:8px;cursor:pointer;color:var(--ink)}
-.burger span{display:block;width:22px;height:1px;background:currentColor;margin:6px 0;transition:transform .3s,opacity .3s}
-@media (max-width:760px){
-  .nav-links{position:absolute;top:80px;left:0;right:0;flex-direction:column;gap:0;background:var(--bone);padding:4px var(--pad) 20px;border-bottom:1px solid rgba(176,143,94,.35);opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .3s,transform .3s}
-  .nav-links a{display:block;padding:16px 0;font-size:12px;border-bottom:1px solid rgba(27,36,32,.08)}
-  .nav.open .nav-links{opacity:1;pointer-events:auto;transform:none}
-  .burger{display:block}
-  .nav-r>.btn{display:none}
-  .menu-cta{display:block}
-  .nav-links .menu-cta a{margin-top:12px;border:0;background:var(--forest);color:var(--bone);border-radius:999px;text-align:center;padding:16px}
-  .nav-r{gap:8px}
-  .nav.open .burger span:nth-child(1){transform:translateY(3.5px) rotate(45deg)}
-  .nav.open .burger span:nth-child(2){transform:translateY(-3.5px) rotate(-45deg)}
-}
-.nav .btn{white-space:nowrap}
-@media (max-width:400px){.nav .brand img{height:18px}.nav .btn{padding:10px 12px;letter-spacing:.08em;font-size:10px}.burger{padding:4px}.nav-in{gap:10px}.nav-r{gap:6px}}
+/* LOGO + FLOATING CTA */
+.top-logo{display:flex;justify-content:center;padding:clamp(22px,3vw,34px) 0 clamp(18px,2.4vw,28px)}
+.top-logo img{height:clamp(22px,2vw,28px);width:auto}
+.float-cta{position:fixed;top:16px;right:16px;z-index:60;padding:11px 20px;border-radius:999px;background:var(--forest);color:var(--bone);border:1px solid var(--forest);font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;white-space:nowrap;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .4s,transform .4s,background .4s,color .4s}
+.float-cta.show{opacity:1;transform:none;pointer-events:auto}
+.float-cta:hover{background:var(--champ);border-color:var(--champ);color:var(--ink)}
+@media (max-width:400px){.float-cta{top:12px;right:12px;padding:10px 14px;letter-spacing:.12em}}
 
 /* HERO */
-.hero{padding:4px 0 var(--pad)}
+.hero{padding:0 0 var(--pad)}
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--pad)}
 .hero-copy{background:var(--forest);color:var(--bone);border-color:var(--forest);padding:clamp(30px,4vw,64px);display:flex;flex-direction:column;min-height:min(84vh,860px)}
 .hero-copy .label{color:var(--gold-l)}
@@ -90,7 +68,8 @@ p{margin:0;text-wrap:pretty}
 .hero h1 em{color:var(--gold-l)}
 .hero .sub{margin-top:30px;max-width:34ch;font-size:clamp(18px,1.6vw,24px);line-height:1.5;color:rgba(243,238,229,.82)}
 .hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:44px}
-.hero-btns .btn{padding:15px 22px;letter-spacing:.16em}
+.hero-btns .btn{padding:15px 24px;letter-spacing:.16em}
+@media (max-width:520px){.hero-btns{flex-direction:column}.hero-btns .btn{width:100%}}
 .hero-img{--tone:#5E665F;min-height:420px}
 @media (max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-copy{min-height:0}.hero-img{min-height:0;aspect-ratio:4/3}}
 
@@ -99,14 +78,18 @@ p{margin:0;text-wrap:pretty}
 .head .label{margin-bottom:28px}
 @media (max-width:860px){.head{grid-template-columns:1fr}}
 .pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--pad)}
-.pillar{padding:clamp(24px,2.4vw,36px);display:flex;flex-direction:column;background:var(--bone);transition:background .5s,transform .5s}
+.pillar{padding:clamp(24px,2.4vw,36px);display:flex;flex-direction:column;background:transparent;overflow:visible;transition:background .5s,transform .5s}
+.pillar:not(:last-child)::after{content:"→";position:absolute;top:clamp(26px,2.6vw,40px);right:calc(-1 * var(--pad) / 2 - 15px);width:30px;height:30px;border-radius:50%;border:var(--line);background:var(--bone);color:var(--gold);display:grid;place-items:center;font-size:14px;line-height:1;z-index:2}
+@media (max-width:1100px){.pillar:not(:last-child)::after{display:none}}
 .pillar:hover,.pillar.lit{background:var(--champ);transform:translateY(-4px)}
 .pillar .n{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold);line-height:1}
-.pillar h3{font-size:clamp(28px,2.2vw,36px);margin:44px 0 30px}
-.pillar .promise{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.35;color:var(--ink-2);margin-bottom:30px}
+.pillar h3{font-size:clamp(30px,2.6vw,42px);margin:44px 0 12px}
+
+.pillar .promise{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.35;color:var(--ink-2);margin-bottom:28px;min-height:2.7em}
+.pillar .desc{font-size:15.5px;line-height:1.6;color:var(--ink-2);margin-bottom:28px;min-height:8em}
+@media (max-width:1100px){.pillar .promise{min-height:0}.pillar .desc{min-height:4.8em}}
+@media (max-width:600px){.pillar .promise,.pillar .desc{min-height:0}}
 .pillar ul{list-style:none;margin:0;padding:0}
-.pillar h3{min-height:2.1em}
-@supports (grid-template-rows:subgrid){.pillars{grid-template-rows:auto auto auto}.pillar{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:0}.pillar h3{min-height:0}}
 @media (max-width:600px){.pillar h3{min-height:0}}
 .pillar li{font-size:15px;padding:12px 0;border-bottom:1px solid rgba(27,36,32,.1);color:var(--ink-2);line-height:1.45}
 .pillar li:last-child{border-bottom:0}
@@ -123,7 +106,7 @@ p{margin:0;text-wrap:pretty}
 /* HOW */
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--pad);list-style:none;margin:0;padding:0}
 .step{padding:clamp(24px,2.4vw,36px);background:var(--bone);display:flex;flex-direction:column;gap:14px;min-height:260px;transition:background .5s,transform .5s}
-.step:hover{background:var(--champ);transform:translateY(-4px)}
+.step:hover,.step.lit{background:var(--champ);transform:translateY(-4px)}
 .step .n{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold);line-height:1}
 .step h3{font-size:clamp(30px,2.6vw,42px);margin-top:44px}
 .step p{min-height:4.65em}
@@ -183,37 +166,22 @@ footer{padding:0 0 var(--pad)}
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- ============ NAV ============ -->
-<header class="nav" id="nav">
-  <div class="wrap nav-in">
-    <a href="#top" class="brand" aria-label="arkWELL home"><img src="images/arkwell-logo-black.png" alt="arkWELL" width="1589" height="344"></a>
-    <div class="nav-r">
-      <nav aria-label="Primary">
-        <ul class="nav-links" id="navLinks">
-          <li><a href="#what-we-do">What</a></li>
-          <li><a href="#how">How</a></li>
-          <li><a href="#why">Why</a></li>
-          <li><a href="#founder">Founder</a></li>
-          <li class="menu-cta"><a href="#contact">Start a conversation</a></li>
-        </ul>
-      </nav>
-      <a href="#contact" class="btn dark">Start a conversation</a>
-      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
-    </div>
-  </div>
-</header>
+<!-- ============ FLOATING CTA (appears after the hero) ============ -->
+<a href="#contact" class="float-cta" id="floatCta" aria-hidden="true" tabindex="-1">Start a conversation</a>
 
 <main id="main">
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
+  <div class="wrap top-logo"><a href="#top" aria-label="arkWELL home"><img src="images/arkwell-logo-black.png" alt="arkWELL" width="1589" height="344"></a></div>
   <div class="wrap hero-grid">
     <div class="card hero-copy">
       <p class="label">Wellness tourism consultancy</p>
       <h1>Empowering wellness <em>hospitality brands.</em></h1>
-      <p class="sub">Signature programming, guest experience and the partnerships that grow revenue, reach and reputation.</p>
+      <p class="sub">We shape the wellness experiences that define your brand, and grow its revenue, reach and reputation.</p>
       <div class="hero-btns">
         <a href="#contact" class="btn solid">Start a conversation</a>
+        <a href="#what-we-do" class="btn ghost">What we do</a>
       </div>
     </div>
     <div class="card ph hero-img">
@@ -230,7 +198,7 @@ footer{padding:0 0 var(--pad)}
       <p class="label">The shift</p>
       <div class="shift-grid">
         <h2 class="h2">Wellness is becoming the reason <em>people travel.</em></h2>
-        <p class="body">Guests now choose a stay for how they will feel, during and long after. Every property already holds the ingredients for that. We help wellness hospitality brands shape them into experiences guests seek out, return to and share.</p>
+        <p class="body">Guests now choose a stay for how they will feel, during and long after. Every stay already holds the ingredients for that. We help wellness hospitality brands shape them into experiences guests seek out, return to and share.</p>
       </div>
     </div>
   </div>
@@ -242,37 +210,20 @@ footer{padding:0 0 var(--pad)}
     <div class="head fade">
       <div>
         <p class="label">What we do</p>
-        <h2 class="h2">Four ways we grow <em>wellness properties.</em></h2>
+        <h2 class="h2">From first idea to <em>a stay people travel for.</em></h2>
       </div>
+      <p class="lede">Experience design and distribution, under one roof. Partner with us end to end, or start at the stage you need.</p>
     </div>
     <div class="pillars">
-      <article class="card pillar fade"><span class="n">01</span><h3>Guest journey and gap analysis</h3>
-        <ul><li>Reservation and enquiry journey review</li><li>Digital presence and booking review</li><li>Wellness offering and positioning review</li><li>Gap analysis and growth roadmap for leadership</li></ul></article>
-      <article class="card pillar fade"><span class="n">02</span><h3>Signature programming and residencies</h3>
-        <ul><li>Wellness expert residencies</li><li>Signature rituals, menus and themed retreats</li><li>Underused spaces turned into wellness experiences</li><li>Programming for corporate and group stays</li></ul></article>
-      <article class="card pillar fade"><span class="n">03</span><h3>Guest demand and partnerships</h3>
-        <ul><li>Travel agency partnerships</li><li>Corporate offsites and leadership retreats</li><li>Communities, curators and organisers seeking venues</li><li>Review and reputation systems</li></ul></article>
-      <article class="card pillar fade"><span class="n">04</span><h3>Storytelling and creators</h3>
-        <ul><li>Creator partnerships focused on bookings</li><li>Content strategy and visual direction</li><li>Content captured from every residency</li><li>Social media training for on-ground teams</li></ul></article>
+      <article class="card pillar fade"><span class="n">01</span><h3>Design</h3><p class="promise">See the full opportunity and shape the plan.</p>
+        <ul><li>Wellness positioning and point of difference</li><li>Target guest segments and market benchmarking</li><li>Booking funnel and digital presence audit</li><li>Spatial audit of underused areas</li><li>Program architecture and growth roadmap</li></ul></article>
+      <article class="card pillar fade"><span class="n">02</span><h3>Build</h3><p class="promise">Create the experiences guests travel for.</p>
+        <ul><li>Signature retreats, rituals and seasonal calendars</li><li>Wellness expert residencies, curated and managed end to end</li><li>Wellness menus and mindful daily schedules</li><li>Staff training to deliver programs in-house</li><li>In-room wellness design for sleep, movement and rituals</li></ul></article>
+      <article class="card pillar fade"><span class="n">03</span><h3>Position</h3><p class="promise">Tell the story that makes guests book.</p>
+        <ul><li>Brand narrative for your wellness offering</li><li>Content strategy and visual direction</li><li>Residency content shoots for your channels</li><li>Creator partnerships focused on bookings</li><li>Social media training for on-ground teams</li></ul></article>
+      <article class="card pillar fade"><span class="n">04</span><h3>Distribute</h3><p class="promise">Bring the right guests through our network.</p>
+        <ul><li>Travel agency partnerships across our markets</li><li>Corporate offsites and leadership retreats</li><li>Founder, creator and wellness communities seeking venues</li><li>Retreat curators and organisers</li><li>Review and reputation systems</li></ul></article>
     </div>
-  </div>
-</section>
-
-<!-- ============ HOW WE WORK ============ -->
-<section id="how" style="padding-bottom:clamp(80px,10vw,150px)">
-  <div class="wrap">
-    <div class="head fade">
-      <div>
-        <p class="label">How we work</p>
-        <h2 class="h2">Every property starts with <em>a conversation.</em></h2>
-      </div>
-    </div>
-    <ol class="steps">
-      <li class="card step fade"><span class="n">01</span><h3>Discover</h3><p>We study your guests, booking journey and wellness offering before recommending anything.</p></li>
-      <li class="card step fade"><span class="n">02</span><h3>Design</h3><p>Programming, experiences and stories built around what makes your property distinct.</p></li>
-      <li class="card step fade"><span class="n">03</span><h3>Connect</h3><p>Facilitators, creators, travel partners and communities who bring the right guests.</p></li>
-      <li class="card step fade"><span class="n">04</span><h3>Measure</h3><p>We track bookings, reach and guest feedback, and keep refining what works.</p></li>
-    </ol>
   </div>
 </section>
 
@@ -284,9 +235,9 @@ footer{padding:0 0 var(--pad)}
       <p class="label" style="margin-bottom:36px">Why arkWELL</p>
       <p style="font-family:var(--serif);font-size:clamp(28px,2.9vw,48px);line-height:1.16;letter-spacing:-.01em;max-width:28ch;text-wrap:balance">We bring <em style="color:var(--gold)">six years of experiencing the best of wellness</em> around the world, a deep understanding of content from <em style="color:var(--gold)">building our own thriving community</em>, and a <em style="color:var(--gold)">strong network</em> across travel and the wellness ecosystem.</p>
       <ul class="points">
-        <li><strong>Both sides of the experience</strong><span>Years as guests and creators at some of the world's finest wellness properties.</span></li>
-        <li><strong>A network that brings guests</strong><span>A network of travel partners, corporate teams and communities looking for exactly what you offer.</span></li>
-        <li><strong>Content in our DNA</strong><span>We built @prachiandharsh from scratch, and we know what makes people book.</span></li>
+        <li><strong>Both sides of the experience</strong><span>Years as guests and creators at some of the world's finest wellness stays.</span></li>
+        <li><strong>Demand built in</strong><span>A network of travel partners, corporate teams and communities looking for exactly what you offer.</span></li>
+        <li><strong>Content is our craft</strong><span>We built @prachiandharsh from scratch, and we know what makes people book.</span></li>
       </ul>
       <a href="https://www.instagram.com/prachiandharsh/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;margin-top:clamp(36px,4vw,56px);font-family:var(--serif);font-style:italic;font-size:clamp(22px,2vw,30px);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:4px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@prachiandharsh</a>
     </div>
@@ -306,9 +257,9 @@ footer{padding:0 0 var(--pad)}
     <div class="card letter fade">
       <p class="label">Founder's note</p>
       <h2>Extraordinary places deserve <em>the guests who would love them most.</em></h2>
-      <p>For over six years, Prachi and I have travelled the world as @prachiandharsh, from the Maldives to Iceland, staying at and creating for some of the finest wellness properties there are.</p>
+      <p>For over six years, Prachi and I have travelled the world as @prachiandharsh, from the Maldives to Iceland, staying at and creating for some of the finest wellness stays there are.</p>
       <p>Along the way I kept noticing the same thing. Remarkable places, with powerful practices and dedicated teams, still invisible to the guests who would value them most.</p>
-      <p>arkWELL exists to close that gap. We help properties build wellness experiences worth travelling for, and connect them with the guests, partners and experts who belong there.</p>
+      <p>arkWELL exists to close that gap. We help wellness hospitality brands build wellness experiences worth travelling for, and connect them with the guests, partners and experts who belong there.</p>
       <div class="sign">
         <div>
           <div class="name">Harsh Pandorwala</div>
@@ -328,8 +279,8 @@ footer{padding:0 0 var(--pad)}
   <div class="wrap">
     <div class="card fade">
       <p class="label">Start a conversation</p>
-      <h2 class="h2">Let's build what your property is <em>capable of.</em></h2>
-      <p class="sub">Tell us about your property. We'll come back with the three gaps we would close first.</p>
+      <h2 class="h2">Let's build what your brand is <em>capable of.</em></h2>
+      <p class="sub">Tell us about your brand. We'll come back with the three gaps we would close first.</p>
       <a class="mail" href="mailto:harsh@thearkwell.com">harsh@thearkwell.com</a>
     </div>
   </div>
@@ -353,21 +304,21 @@ footer{padding:0 0 var(--pad)}
 
 <script>
 (function(){
-  var nav=document.getElementById('nav'),burger=document.getElementById('burger');
-  burger.addEventListener('click',function(){var o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
-  document.querySelectorAll('.nav-links a').forEach(function(l){l.addEventListener('click',function(){nav.classList.remove('open');burger.setAttribute('aria-expanded','false')})});
-  function onScroll(){nav.classList.toggle('solid',window.scrollY>20)}
+  var fc=document.getElementById('floatCta'),hero=document.getElementById('top');
+  function onScroll(){var show=hero.getBoundingClientRect().bottom<0;fc.classList.toggle('show',show);fc.setAttribute('aria-hidden',show?'false':'true');fc.tabIndex=show?0:-1;}
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.fade').forEach(function(el){io.observe(el)});
-    var ps=[].slice.call(document.querySelectorAll('.pillar'));
+    var groups=[[].slice.call(document.querySelectorAll('.pillar'))];
     var touch=window.matchMedia('(hover:none)');
     function lite(){
-      if(!touch.matches){ps.forEach(function(p){p.classList.remove('lit')});return;}
-      var mid=window.innerHeight/2,best=null,bd=1e9;
-      ps.forEach(function(p){var r=p.getBoundingClientRect();if(r.bottom<0||r.top>window.innerHeight)return;var d=Math.abs((r.top+r.bottom)/2-mid);if(d<bd){bd=d;best=p;}});
-      ps.forEach(function(p){p.classList.toggle('lit',p===best&&bd<window.innerHeight*0.3)});
+      groups.forEach(function(ps){
+        if(!touch.matches){ps.forEach(function(p){p.classList.remove('lit')});return;}
+        var mid=window.innerHeight/2,best=null,bd=1e9;
+        ps.forEach(function(p){var r=p.getBoundingClientRect();if(r.bottom<0||r.top>window.innerHeight)return;var d=Math.abs((r.top+r.bottom)/2-mid);if(d<bd){bd=d;best=p;}});
+        ps.forEach(function(p){p.classList.toggle('lit',p===best&&bd<window.innerHeight*0.3)});
+      });
     }
     window.addEventListener('scroll',lite,{passive:true});window.addEventListener('resize',lite);lite();
   } else document.querySelectorAll('.fade').forEach(function(el){el.classList.add('in')});
