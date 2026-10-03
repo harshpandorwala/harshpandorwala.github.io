@@ -3,13 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>arkWELL · The growth partner for wellness hospitality</title>
-<meta name="description" content="arkWELL is a wellness tourism consultancy. Strategy, experience design, content and partnerships for wellness hospitality.">
+<title>arkWELL · Empowering wellness hospitality brands</title>
+<meta name="description" content="arkWELL is a wellness tourism consultancy for wellness hospitality brands: signature programming, guest experience and partnerships that grow revenue, reach and reputation.">
 <link rel="canonical" href="https://thearkwell.com/">
-<meta property="og:title" content="arkWELL · Wellness tourism consultancy">
-<meta property="og:description" content="Strategy, experience design, content and partnerships for wellness hospitality.">
+<meta property="og:title" content="arkWELL · Empowering wellness hospitality brands">
+<meta property="og:description" content="Signature programming, guest experience and the partnerships that grow revenue, reach and reputation.">
 <!-- PLACEHOLDER: social share image -->
 <meta property="og:image" content="images/og-image.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -20,7 +23,7 @@
   --pad:clamp(14px,2vw,28px); --r:clamp(20px,2.2vw,32px); --line:1px solid rgba(176,143,94,.55);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img,video{display:block;max-width:100%}
 a{color:inherit}
@@ -49,9 +52,30 @@ p{margin:0;text-wrap:pretty}
 @media (prefers-reduced-motion:reduce){.fade{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
 /* HEADER */
-.nav{position:sticky;top:0;z-index:50;height:80px;display:flex;align-items:center;justify-content:center;background:var(--bone);border-bottom:1px solid transparent;transition:border-color .4s}
+.nav{position:sticky;top:0;z-index:50;height:80px;background:var(--bone);border-bottom:1px solid transparent;transition:border-color .4s}
 .nav.solid{border-color:rgba(176,143,94,.35)}
-.nav img{height:24px;width:auto}
+.nav-in{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav .brand img{height:24px;width:auto}
+.nav-r{display:flex;align-items:center;gap:clamp(18px,2.6vw,40px)}
+.nav-links{display:flex;gap:clamp(18px,2.2vw,34px);list-style:none;margin:0;padding:0}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;text-decoration:none;color:var(--ink-2)}
+.nav-links a:hover{color:var(--gold)}
+.btn.dark{background:var(--forest);border-color:var(--forest);color:var(--bone)}
+.btn.dark:hover{background:transparent;color:var(--forest)}
+.nav .btn{padding:13px 22px;font-size:10.5px;letter-spacing:.2em}
+.burger{display:none;background:none;border:0;padding:8px;cursor:pointer;color:var(--ink)}
+.burger span{display:block;width:22px;height:1px;background:currentColor;margin:6px 0;transition:transform .3s,opacity .3s}
+@media (max-width:760px){
+  .nav-links{position:absolute;top:80px;left:0;right:0;flex-direction:column;gap:0;background:var(--bone);padding:4px var(--pad) 20px;border-bottom:1px solid rgba(176,143,94,.35);opacity:0;pointer-events:none;transform:translateY(-6px);transition:opacity .3s,transform .3s}
+  .nav-links a{display:block;padding:16px 0;font-size:12px;border-bottom:1px solid rgba(27,36,32,.08)}
+  .nav.open .nav-links{opacity:1;pointer-events:auto;transform:none}
+  .burger{display:block}
+  .nav-r{gap:8px}
+  .nav.open .burger span:nth-child(1){transform:translateY(3.5px) rotate(45deg)}
+  .nav.open .burger span:nth-child(2){transform:translateY(-3.5px) rotate(-45deg)}
+}
+.nav .btn{white-space:nowrap}
+@media (max-width:400px){.nav .brand img{height:18px}.nav .btn{padding:10px 12px;letter-spacing:.08em;font-size:10px}.burger{padding:4px}.nav-in{gap:10px}.nav-r{gap:6px}}
 
 /* HERO */
 .hero{padding:4px 0 var(--pad)}
@@ -72,19 +96,41 @@ p{margin:0;text-wrap:pretty}
 @media (max-width:860px){.head{grid-template-columns:1fr}}
 .pillars{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--pad)}
 .pillar{padding:clamp(24px,2.4vw,36px);display:flex;flex-direction:column;background:var(--bone);transition:background .5s,transform .5s}
-.pillar:nth-child(odd){background:var(--stone)}
-.pillar:nth-child(2){background:var(--champ)}
-.pillar:hover{transform:translateY(-4px)}
+.pillar:hover,.pillar.lit{background:var(--champ);transform:translateY(-4px)}
 .pillar .n{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold);line-height:1}
-.pillar h3{font-size:clamp(30px,2.5vw,40px);margin:0 0 14px}
+.pillar h3{font-size:clamp(28px,2.2vw,36px);margin:44px 0 30px}
 .pillar .promise{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.35;color:var(--ink-2);margin-bottom:30px}
-.pillar ul{list-style:none;margin:auto 0 0;padding:0}
+.pillar ul{list-style:none;margin:0;padding:0}
+.pillar h3{min-height:2.1em}
+@supports (grid-template-rows:subgrid){.pillars{grid-template-rows:auto auto auto}.pillar{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:0}.pillar h3{min-height:0}}
+@media (max-width:600px){.pillar h3{min-height:0}}
 .pillar li{font-size:15px;padding:12px 0;border-bottom:1px solid rgba(27,36,32,.1);color:var(--ink-2);line-height:1.45}
 .pillar li:last-child{border-bottom:0}
 .engage{margin-top:clamp(48px,6vw,80px);text-align:center;font-family:var(--serif);font-size:clamp(24px,2.4vw,34px);line-height:1.3}
 .engage em{color:var(--gold)}
 @media (max-width:1100px){.pillars{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:600px){.pillars{grid-template-columns:1fr}.pillar h3{margin-top:28px}}
+@media (max-width:600px){.pillars{grid-template-columns:1fr}.pillar h3{margin-top:24px}}
+/* SHIFT */
+.shift .card{background:var(--stone);padding:clamp(56px,8vw,128px) clamp(24px,6vw,110px)}
+.shift .label{margin-bottom:32px}
+.shift-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,6vw,110px);align-items:end}
+.shift p.body{font-size:clamp(19px,1.6vw,24px);line-height:1.6;color:var(--ink-2);max-width:40ch;padding-bottom:.6em}
+@media (max-width:860px){.shift-grid{grid-template-columns:1fr}.shift p.body{padding-bottom:0}}
+/* HOW */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--pad);list-style:none;margin:0;padding:0}
+.step{padding:clamp(24px,2.4vw,36px);background:var(--bone);display:flex;flex-direction:column;gap:14px;min-height:260px;transition:background .5s,transform .5s}
+.step:hover{background:var(--champ);transform:translateY(-4px)}
+.step .n{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold);line-height:1}
+.step h3{font-size:clamp(30px,2.6vw,42px);margin-top:auto}
+.step p{font-size:15.5px;color:var(--ink-2);line-height:1.55}
+@media (max-width:1000px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}.step{min-height:0}.step h3{margin-top:18px}}
+/* WHY POINTS */
+.points{list-style:none;margin:clamp(36px,4vw,56px) 0 0;padding:0;display:grid;gap:0;border-top:var(--line)}
+.points li{padding:18px 0;border-bottom:1px solid rgba(27,36,32,.1);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:8px 24px}
+.points strong{font-family:var(--serif);font-weight:400;font-size:22px;line-height:1.2}
+.points span{font-size:15.5px;color:var(--ink-2);line-height:1.55}
+@media (max-width:600px){.points li{grid-template-columns:1fr}}
 
 /* FOUNDER */
 .f-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:var(--pad)}
@@ -107,10 +153,11 @@ p{margin:0;text-wrap:pretty}
 @media (max-width:900px){.why-grid{grid-template-columns:1fr}.why-img{min-height:0;aspect-ratio:4/3}}
 /* CONTACT */
 .contact .card{background:var(--champ);text-align:center;padding:clamp(64px,9vw,140px) clamp(24px,4vw,64px)}
+.contact .sub{margin:28px auto 0;max-width:44ch;font-size:clamp(17px,1.4vw,21px);color:var(--ink-2)}
 .contact .label{justify-content:center;margin-bottom:28px}
 .contact .label::after{content:"";width:28px;height:1px;background:currentColor;opacity:.7}
 .contact .h2 em{color:var(--ink-2)}
-.mail{display:inline-block;margin-top:clamp(40px,5vw,64px);font-family:var(--serif);font-size:clamp(28px,4.6vw,68px);line-height:1.1;text-decoration:none;color:var(--ink);padding-bottom:8px;border-bottom:1px solid var(--ink);overflow-wrap:anywhere;transition:color .4s,border-color .4s}
+.mail{display:inline-block;margin-top:clamp(40px,5vw,64px);font-family:var(--serif);font-size:clamp(30px,6vw,96px);line-height:1.1;text-decoration:none;color:var(--ink);padding-bottom:8px;border-bottom:1px solid var(--ink);overflow-wrap:anywhere;transition:color .4s,border-color .4s}
 .mail:hover{color:var(--gold);border-color:var(--gold)}
 
 /* FOOTER */
@@ -130,9 +177,23 @@ footer{padding:0 0 var(--pad)}
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<!-- ============ HEADER: logo only, centred ============ -->
+<!-- ============ NAV ============ -->
 <header class="nav" id="nav">
-  <a href="#top" aria-label="arkWELL home"><img src="images/arkwell-logo-black.png" alt="arkWELL" width="1589" height="344"></a>
+  <div class="wrap nav-in">
+    <a href="#top" class="brand" aria-label="arkWELL home"><img src="images/arkwell-logo-black.png" alt="arkWELL" width="1589" height="344"></a>
+    <div class="nav-r">
+      <nav aria-label="Primary">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#what-we-do">What</a></li>
+          <li><a href="#how">How</a></li>
+          <li><a href="#why">Why</a></li>
+          <li><a href="#founder">Founder</a></li>
+        </ul>
+      </nav>
+      <a href="#contact" class="btn dark">Start a conversation</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span></button>
+    </div>
+  </div>
 </header>
 
 <main id="main">
@@ -142,13 +203,10 @@ footer{padding:0 0 var(--pad)}
   <div class="wrap hero-grid">
     <div class="card hero-copy">
       <p class="label">Wellness tourism consultancy</p>
-      <h1>The growth partner for <em>wellness hospitality.</em></h1>
-      <p class="sub">Strategy, experience design, content and partnerships for wellness hospitality.</p>
+      <h1>Empowering wellness <em>hospitality brands.</em></h1>
+      <p class="sub">Signature programming, guest experience and the partnerships that grow revenue, reach and reputation.</p>
       <div class="hero-btns">
-        <a href="#what-we-do" class="btn solid">What we do</a>
-        <a href="#founder" class="btn ghost">Founder's note</a>
-        <a href="#why" class="btn ghost">Why us</a>
-        <a href="#contact" class="btn ghost">Get in touch</a>
+        <a href="#contact" class="btn solid">Start a conversation</a>
       </div>
     </div>
     <div class="card ph hero-img">
@@ -158,19 +216,76 @@ footer{padding:0 0 var(--pad)}
   </div>
 </section>
 
+<!-- ============ THE SHIFT ============ -->
+<section class="shift" id="shift">
+  <div class="wrap">
+    <div class="card fade">
+      <p class="label">The shift</p>
+      <div class="shift-grid">
+        <h2 class="h2">Wellness is becoming the reason <em>people travel.</em></h2>
+        <p class="body">Guests now choose a stay for how they will feel, during and long after. Every property already holds the ingredients for that. We help wellness hospitality brands shape them into experiences guests seek out, return to and share.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ WHAT WE DO ============ -->
 <section class="sec" id="what-we-do">
   <div class="wrap">
-    <p class="label fade" style="margin-bottom:clamp(32px,4vw,56px)">What we do</p>
+    <div class="head fade">
+      <div>
+        <p class="label">What we do</p>
+        <h2 class="h2">Four ways we grow <em>wellness properties.</em></h2>
+      </div>
+    </div>
     <div class="pillars">
-      <article class="card pillar fade"><h3>Strategy &amp; Audit</h3><p class="promise">See your property through your guest's eyes.</p>
-        <ul><li>Guest journey and booking audits</li><li>Digital presence review</li><li>Gap analysis for leadership</li><li>Growth roadmap</li></ul></article>
-      <article class="card pillar fade"><h3>Experience Design</h3><p class="promise">Turn stays into experiences people travel for.</p>
-        <ul><li>Wellness integration for nature and eco stays</li><li>Transforming underused spaces into wellness zones</li><li>Rituals, menus and mindful schedules</li></ul></article>
-      <article class="card pillar fade"><h3>Content &amp; Creators</h3><p class="promise">Stories that fill rooms, not just feeds.</p>
-        <ul><li>Content playbooks and visual direction</li><li>Creator residencies focused on bookings</li><li>Social media training for on-ground teams</li></ul></article>
-      <article class="card pillar fade"><h3>Distribution &amp; Partnerships</h3><p class="promise">The right guests, through the right channels.</p>
-        <ul><li>Travel agency and corporate offsite access</li><li>Retreat curator and facilitator placements</li><li>Review and reputation systems</li></ul></article>
+      <article class="card pillar fade"><span class="n">01</span><h3>Guest journey and gap analysis</h3>
+        <ul><li>Reservation and enquiry journey review</li><li>Digital presence and booking review</li><li>Wellness offering and positioning review</li><li>Gap analysis and growth roadmap for leadership</li></ul></article>
+      <article class="card pillar fade"><span class="n">02</span><h3>Signature programming and residencies</h3>
+        <ul><li>Wellness expert residencies</li><li>Signature rituals, menus and themed retreats</li><li>Underused spaces turned into wellness experiences</li><li>Programming for corporate and group stays</li></ul></article>
+      <article class="card pillar fade"><span class="n">03</span><h3>Guest demand and partnerships</h3>
+        <ul><li>Travel agency partnerships</li><li>Corporate offsites and leadership retreats</li><li>Communities, curators and organisers seeking venues</li><li>Review and reputation systems</li></ul></article>
+      <article class="card pillar fade"><span class="n">04</span><h3>Storytelling and creators</h3>
+        <ul><li>Creator partnerships focused on bookings</li><li>Content strategy and visual direction</li><li>Content captured from every residency</li><li>Social media training for on-ground teams</li></ul></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW WE WORK ============ -->
+<section id="how" style="padding-bottom:clamp(80px,10vw,150px)">
+  <div class="wrap">
+    <div class="head fade">
+      <div>
+        <p class="label">How we work</p>
+        <h2 class="h2">Every property starts with <em>a conversation.</em></h2>
+      </div>
+    </div>
+    <ol class="steps">
+      <li class="card step fade"><span class="n">01</span><h3>Assess</h3><p>We study your guests, booking journey and wellness offering before recommending anything.</p></li>
+      <li class="card step fade"><span class="n">02</span><h3>Design</h3><p>Programming, experiences and stories built around what makes your property distinct.</p></li>
+      <li class="card step fade"><span class="n">03</span><h3>Connect</h3><p>Facilitators, creators, travel partners and communities who bring the right guests.</p></li>
+      <li class="card step fade"><span class="n">04</span><h3>Measure</h3><p>We track bookings, reach and guest feedback, and keep refining.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ WHY ARKWELL ============ -->
+<section id="why" style="padding-bottom:var(--pad)">
+  <div class="wrap">
+    <div class="why-grid">
+    <div class="card fade" style="background:var(--stone);padding:clamp(48px,6vw,100px) clamp(24px,4.4vw,80px)">
+      <p class="label" style="margin-bottom:36px">Why arkWELL</p>
+      <p style="font-family:var(--serif);font-size:clamp(28px,2.9vw,48px);line-height:1.16;letter-spacing:-.01em;max-width:28ch;text-wrap:balance">We bring <em style="color:var(--gold)">six years of experiencing the best of wellness</em> around the world, a deep understanding of content from <em style="color:var(--gold)">building our own thriving community</em>, and a <em style="color:var(--gold)">strong network</em> across travel and the wellness ecosystem.</p>
+      <ul class="points">
+        <li><strong>Both sides of the experience</strong><span>Years as guests and creators at some of the world's finest wellness properties.</span></li>
+        <li><strong>A network that brings guests</strong><span>A network of travel partners, corporate teams and communities looking for exactly what you offer.</span></li>
+        <li><strong>Content in our DNA</strong><span>We built @prachiandharsh from scratch, and we know what makes people book.</span></li>
+      </ul>
+      <a href="https://www.instagram.com/prachiandharsh/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;margin-top:clamp(36px,4vw,56px);font-family:var(--serif);font-style:italic;font-size:clamp(22px,2vw,30px);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:4px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@prachiandharsh</a>
+    </div>
+    <div class="card ph fade why-img" style="--tone:#7A8478">
+      <img src="images/why.jpg" alt="Aerial view of Prachi and Harsh lying on a wooden jetty over turquoise water" style="object-position:50% 45%" loading="lazy" onerror="this.remove()">
+    </div>
     </div>
   </div>
 </section>
@@ -179,14 +294,14 @@ footer{padding:0 0 var(--pad)}
 <section id="founder" style="padding-bottom:var(--pad)">
   <div class="wrap f-grid">
     <div class="card ph fade">
-      <!-- PLACEHOLDER IMAGE: images/founder.jpg (portrait, 4:5) -->
       <img src="images/founder.jpg" alt="Portrait of Harsh Pandorwala, founder of arkWELL" style="object-position:50% 35%" loading="lazy" onerror="this.remove()">
     </div>
     <div class="card letter fade">
       <p class="label">Founder's note</p>
-      <h2>Where travel meets wellness, <em>something magical happens.</em></h2>
-      <p>Over the years, I've had the chance to experience and work with some of the finest wellness hospitality brands. I've had countless conversations with wellness experts, and with people looking for a truly transformative experience.</p>
-      <p>Wellness tourism needs someone who has been on both sides of the experience. That's what arkWELL brings: fresh approaches, real understanding, and a genuine commitment to every wellness hospitality brand we work with.</p>
+      <h2>Extraordinary places deserve <em>the guests who would love them most.</em></h2>
+      <p>For over six years, Prachi and I have travelled the world as @prachiandharsh, from the Maldives to Iceland, staying at and creating for some of the finest wellness properties there are.</p>
+      <p>Along the way I kept noticing the same thing. Remarkable places, with powerful practices and dedicated teams, still invisible to the guests who would value them most.</p>
+      <p>arkWELL exists to close that gap. We help properties build wellness experiences worth travelling for, and connect them with the guests, partners and experts who belong there.</p>
       <div class="sign">
         <div>
           <div class="name">Harsh Pandorwala</div>
@@ -201,29 +316,13 @@ footer{padding:0 0 var(--pad)}
   </div>
 </section>
 
-<!-- ============ WHY ARKWELL ============ -->
-<section id="why" style="padding-bottom:var(--pad)">
-  <div class="wrap">
-    <div class="why-grid">
-    <div class="card fade" style="background:var(--stone);padding:clamp(48px,6vw,100px) clamp(24px,4.4vw,80px)">
-      <p class="label" style="margin-bottom:36px">Why arkWELL</p>
-      <p style="font-family:var(--serif);font-size:clamp(28px,2.9vw,48px);line-height:1.16;letter-spacing:-.01em;max-width:28ch;text-wrap:balance">We bring <em style="color:var(--gold)">six years of experiencing the best of wellness</em> around the world, a deep understanding of content from <em style="color:var(--gold)">building our own thriving community</em>, and a <em style="color:var(--gold)">strong network</em> across travel and the wellness ecosystem.</p>
-      <a href="https://www.instagram.com/prachiandharsh/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:12px;margin-top:clamp(36px,4vw,56px);font-family:var(--serif);font-style:italic;font-size:clamp(22px,2vw,30px);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:4px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@prachiandharsh</a>
-    </div>
-    <div class="card ph fade why-img" style="--tone:#7A8478">
-      <!-- PLACEHOLDER IMAGE: images/why.jpg -->
-      <img src="images/why.jpg" alt="Aerial view of Prachi and Harsh lying on a wooden jetty over turquoise water" style="object-position:50% 45%" loading="lazy" onerror="this.remove()">
-    </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ GET IN TOUCH ============ -->
+<!-- ============ CLOSING CTA ============ -->
 <section class="contact" id="contact" style="padding-bottom:var(--pad)">
   <div class="wrap">
     <div class="card fade">
-      <p class="label">Get in touch</p>
-      <h2 class="h2">Together we can make <em>amazing things happen.</em></h2>
+      <p class="label">Start a conversation</p>
+      <h2 class="h2">Let's build what your property is <em>capable of.</em></h2>
+      <p class="sub">Tell us about your property. We'll come back with the three gaps we would close first.</p>
       <a class="mail" href="mailto:harsh@thearkwell.com">harsh@thearkwell.com</a>
     </div>
   </div>
@@ -235,7 +334,7 @@ footer{padding:0 0 var(--pad)}
   <div class="wrap">
     <div class="card foot">
       <a href="#top" aria-label="arkWELL, back to top"><img class="logo" src="images/arkwell-logo-white.png" alt="arkWELL" width="1589" height="344" loading="lazy"></a>
-      <p class="tagline">The growth partner for wellness hospitality.</p>
+      <p class="tagline">Empowering wellness hospitality brands.</p>
       <div class="icons">
         <a href="https://www.instagram.com/thearkwell/" target="_blank" rel="noopener" aria-label="arkWELL on Instagram"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
         <a href="https://www.linkedin.com/company/thearkwell/" target="_blank" rel="noopener" aria-label="arkWELL on LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="9" width="4" height="12"/><circle cx="5" cy="4.8" r="2.2"/><path d="M10 9h3.8v1.9c.6-1.1 2-2.2 4.1-2.2 3.4 0 4.1 2.2 4.1 5.1V21h-4v-6.3c0-1.5 0-3.3-2-3.3s-2.1 1.5-2.1 3.2V21H10z"/></svg></a>
@@ -247,12 +346,17 @@ footer{padding:0 0 var(--pad)}
 
 <script>
 (function(){
-  var nav=document.getElementById('nav');
+  var nav=document.getElementById('nav'),burger=document.getElementById('burger');
+  burger.addEventListener('click',function(){var o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  document.querySelectorAll('.nav-links a').forEach(function(l){l.addEventListener('click',function(){nav.classList.remove('open');burger.setAttribute('aria-expanded','false')})});
   function onScroll(){nav.classList.toggle('solid',window.scrollY>20)}
   onScroll();window.addEventListener('scroll',onScroll,{passive:true});
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.fade').forEach(function(el){io.observe(el)});
+    var ps=document.querySelectorAll('.pillar');
+    var lo=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('lit',e.isIntersecting)})},{rootMargin:'-45% 0px -45% 0px'});
+    if(window.matchMedia('(max-width:1100px)').matches)ps.forEach(function(p){lo.observe(p)});
   } else document.querySelectorAll('.fade').forEach(function(el){el.classList.add('in')});
 })();
 </script>
