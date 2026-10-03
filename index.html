@@ -63,6 +63,7 @@ p{margin:0;text-wrap:pretty}
 .btn.dark{background:var(--forest);border-color:var(--forest);color:var(--bone)}
 .btn.dark:hover{background:transparent;color:var(--forest)}
 .nav .btn{padding:13px 22px;font-size:10.5px;letter-spacing:.2em}
+.menu-cta{display:none}
 .burger{display:none;background:none;border:0;padding:8px;cursor:pointer;color:var(--ink)}
 .burger span{display:block;width:22px;height:1px;background:currentColor;margin:6px 0;transition:transform .3s,opacity .3s}
 @media (max-width:760px){
@@ -70,6 +71,9 @@ p{margin:0;text-wrap:pretty}
   .nav-links a{display:block;padding:16px 0;font-size:12px;border-bottom:1px solid rgba(27,36,32,.08)}
   .nav.open .nav-links{opacity:1;pointer-events:auto;transform:none}
   .burger{display:block}
+  .nav-r>.btn{display:none}
+  .menu-cta{display:block}
+  .nav-links .menu-cta a{margin-top:12px;border:0;background:var(--forest);color:var(--bone);border-radius:999px;text-align:center;padding:16px}
   .nav-r{gap:8px}
   .nav.open .burger span:nth-child(1){transform:translateY(3.5px) rotate(45deg)}
   .nav.open .burger span:nth-child(2){transform:translateY(-3.5px) rotate(-45deg)}
@@ -121,7 +125,9 @@ p{margin:0;text-wrap:pretty}
 .step{padding:clamp(24px,2.4vw,36px);background:var(--bone);display:flex;flex-direction:column;gap:14px;min-height:260px;transition:background .5s,transform .5s}
 .step:hover{background:var(--champ);transform:translateY(-4px)}
 .step .n{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--gold);line-height:1}
-.step h3{font-size:clamp(30px,2.6vw,42px);margin-top:auto}
+.step h3{font-size:clamp(30px,2.6vw,42px);margin-top:44px}
+.step p{min-height:4.65em}
+@media (max-width:560px){.step p{min-height:0}}
 .step p{font-size:15.5px;color:var(--ink-2);line-height:1.55}
 @media (max-width:1000px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.steps{grid-template-columns:1fr}.step{min-height:0}.step h3{margin-top:18px}}
@@ -150,7 +156,7 @@ p{margin:0;text-wrap:pretty}
 
 .why-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:var(--pad)}
 .why-img{min-height:480px}
-@media (max-width:900px){.why-grid{grid-template-columns:1fr}.why-img{min-height:0;aspect-ratio:4/3}}
+@media (max-width:900px){.why-grid{grid-template-columns:1fr}.why-img{min-height:0;aspect-ratio:4/3;order:-1}}
 /* CONTACT */
 .contact .card{background:var(--champ);text-align:center;padding:clamp(64px,9vw,140px) clamp(24px,4vw,64px)}
 .contact .sub{margin:28px auto 0;max-width:44ch;font-size:clamp(17px,1.4vw,21px);color:var(--ink-2)}
@@ -188,6 +194,7 @@ footer{padding:0 0 var(--pad)}
           <li><a href="#how">How</a></li>
           <li><a href="#why">Why</a></li>
           <li><a href="#founder">Founder</a></li>
+          <li class="menu-cta"><a href="#contact">Start a conversation</a></li>
         </ul>
       </nav>
       <a href="#contact" class="btn dark">Start a conversation</a>
@@ -261,10 +268,10 @@ footer{padding:0 0 var(--pad)}
       </div>
     </div>
     <ol class="steps">
-      <li class="card step fade"><span class="n">01</span><h3>Assess</h3><p>We study your guests, booking journey and wellness offering before recommending anything.</p></li>
+      <li class="card step fade"><span class="n">01</span><h3>Discover</h3><p>We study your guests, booking journey and wellness offering before recommending anything.</p></li>
       <li class="card step fade"><span class="n">02</span><h3>Design</h3><p>Programming, experiences and stories built around what makes your property distinct.</p></li>
       <li class="card step fade"><span class="n">03</span><h3>Connect</h3><p>Facilitators, creators, travel partners and communities who bring the right guests.</p></li>
-      <li class="card step fade"><span class="n">04</span><h3>Measure</h3><p>We track bookings, reach and guest feedback, and keep refining.</p></li>
+      <li class="card step fade"><span class="n">04</span><h3>Measure</h3><p>We track bookings, reach and guest feedback, and keep refining what works.</p></li>
     </ol>
   </div>
 </section>
@@ -354,9 +361,15 @@ footer{padding:0 0 var(--pad)}
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
     document.querySelectorAll('.fade').forEach(function(el){io.observe(el)});
-    var ps=document.querySelectorAll('.pillar');
-    var lo=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle('lit',e.isIntersecting)})},{rootMargin:'-45% 0px -45% 0px'});
-    if(window.matchMedia('(max-width:1100px)').matches)ps.forEach(function(p){lo.observe(p)});
+    var ps=[].slice.call(document.querySelectorAll('.pillar'));
+    var touch=window.matchMedia('(hover:none)');
+    function lite(){
+      if(!touch.matches){ps.forEach(function(p){p.classList.remove('lit')});return;}
+      var mid=window.innerHeight/2,best=null,bd=1e9;
+      ps.forEach(function(p){var r=p.getBoundingClientRect();if(r.bottom<0||r.top>window.innerHeight)return;var d=Math.abs((r.top+r.bottom)/2-mid);if(d<bd){bd=d;best=p;}});
+      ps.forEach(function(p){p.classList.toggle('lit',p===best&&bd<window.innerHeight*0.3)});
+    }
+    window.addEventListener('scroll',lite,{passive:true});window.addEventListener('resize',lite);lite();
   } else document.querySelectorAll('.fade').forEach(function(el){el.classList.add('in')});
 })();
 </script>
